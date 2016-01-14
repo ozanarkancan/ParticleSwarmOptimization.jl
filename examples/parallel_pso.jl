@@ -1,5 +1,6 @@
 using MPI, Knet, ParticleSwarmOptimization
 include("Args.jl")
+include("Functions.jl")
 
 function main()
     MPI.Init()
