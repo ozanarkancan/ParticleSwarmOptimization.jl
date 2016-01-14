@@ -1,4 +1,4 @@
-using ArgParse, Knet, ParticleSwarmOptimization
+using Knet, ParticleSwarmOptimization
 include("Args.jl")
 include("Functions.jl")
 

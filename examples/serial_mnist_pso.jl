@@ -1,5 +1,6 @@
 using ArgParse, Knet, ParticleSwarmOptimization
 include("mnist.jl")
+include("Args.jl")
 
 function minibatch(x, y, batchsize)
     data = Any[]

@@ -1,4 +1,5 @@
-using ArgParse, MPI, Knet, ParticleSwarmOptimization
+using MPI, Knet, ParticleSwarmOptimization
+include("Args.jl")
 
 function main()
     MPI.Init()
