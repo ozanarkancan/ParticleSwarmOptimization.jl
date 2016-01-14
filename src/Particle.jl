@@ -1,5 +1,6 @@
 using Base.LinAlg: axpy!, scale!
-using Knet, MPI, CUDArt
+using Knet, MPI 
+@useifgpu CUDArt
 include("Problem.jl")
 
 abstract AbsParticle
