@@ -134,7 +134,7 @@ end
 Bcast!(gbest::Particle, root::Int, comm::MPI.Comm) = MPI.Bcast!(gbest.x, length(gbest.x), root, comm)
 
 addbuffer(buffer, arr) = (length(buffer) == 0) ? vec(arr) : vcat(buffer, vec(arr))
-addbuffer(buffer, arr::CudaArray) = (length(buffer) == 0) ? vec(to_host(arr)) : vcat(buffer, vec(to_host(arr)))
+@gpu addbuffer(buffer, arr::CudaArray) = (length(buffer) == 0) ? vec(to_host(arr)) : vcat(buffer, vec(to_host(arr)))
 
 function Bcast!(gbest::NNParticle, root::Int, comm::MPI.Comm)
     buffer = Any[]
