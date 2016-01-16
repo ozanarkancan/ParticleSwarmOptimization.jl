@@ -1,5 +1,5 @@
 module MNIST
-using GZip, HTTPClient
+using GZip
 
 const mnisturl = "http://yann.lecun.com/exdb/mnist"
 const xtrn_file = "train-images-idx3-ubyte.gz"
