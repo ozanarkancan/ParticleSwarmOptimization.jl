@@ -10,12 +10,15 @@ This project contains an implementation of Particle Swarm Optimization in Julia.
 In Julia repl,
 
 First, install Knet:
+
 Pkg.clone("https://github.com/denizyuret/Knet.jl.git")
 
 Then,
+
 Pkg.clone("https://github.com/ozanarkancan/ParticleSwarmOptimization.jl.git")
 
 Knet has gpu support, and if you want to run your code in a gpu you should build both packages:
 
 Pkg.build("Knet")
+
 Pkg.build("ParticleSwarmOptimization")
