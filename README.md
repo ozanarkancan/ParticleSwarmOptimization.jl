@@ -17,8 +17,10 @@ Then,
 
 Pkg.clone("https://github.com/ozanarkancan/ParticleSwarmOptimization.jl.git")
 
-Knet has gpu support, and if you want to run your code in a gpu you should build both packages:
+Knet has gpu support, and if you want to run your code on a gpu you should build both packages:
 
 Pkg.build("Knet")
 
 Pkg.build("ParticleSwarmOptimization")
+
+###Usage
