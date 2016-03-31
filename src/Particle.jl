@@ -127,6 +127,13 @@ const libpso = Libdl.find_library(["libpso"], [Pkg.dir("ParticleSwarmOptimizatio
 
 @gpu update!(px::CudaArray{Float64}, pv::CudaArray{Float64}, pbest::CudaArray{Float64}, gbest::CudaArray{Float64}, w, l, h, vmin, vmax, r1, r2)=ccall((:update64,libpso),Void,(Cint,Ptr{Float64}, Ptr{Float64}, Ptr{Float64}, Ptr{Float64}, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble),length(px),px, pv, pbest, gbest, w, l, h, vmin, vmax, r1, r2); gpusync();
 
+@gpu update!(px::CudaArray{Float32}, pv::CudaArray{Float32}, pbest::CudaArray{Float32}, gbest::CudaArray{Float32}, w, l::CudaArray{Float64}, h::CudaArray{Float64}, vmin, vmax, r1, r2)=ccall((:update_32,libpso),Void,(Cint,Ptr{Float32}, Ptr{Float32}, Ptr{Float32}, Ptr{Float32}, Cdouble, Ptr{Float64}, Ptr{Float64}, Cdouble, Cdouble, Cdouble, Cdouble),length(px),px, pv, pbest, gbest, w, l, h, vmin, vmax, r1, r2); gpusync();
+
+
+@gpu update!(px::CudaArray{Float64}, pv::CudaArray{Float64}, pbest::CudaArray{Float64}, gbest::CudaArray{Float64}, w, l::CudaArray{Float64}, h::CudaArray{Float64}, vmin, vmax, r1, r2)=ccall((:update_64,libpso),Void,(Cint,Ptr{Float64}, Ptr{Float64}, Ptr{Float64}, Ptr{Float64}, Cdouble, Ptr{Float64}, Ptr{Float64}, Cdouble, Cdouble, Cdouble, Cdouble),length(px),px, pv, pbest, gbest, w, l, h, vmin, vmax, r1, r2); gpusync();
+
+
+
 function update!(problem::RegularProblem, p::Particle, gbest::Particle, phi1, phi2, w, vmin, vmax)
     l = problem.l
     h = problem.h
