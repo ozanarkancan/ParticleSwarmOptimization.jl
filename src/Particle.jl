@@ -45,6 +45,14 @@ function uniform(dim, l, h)
     arr = arr * (h - l) + l
 end
 
+function uniform(dim, l::Array{Float64, 1}, h::Array{Float64, 1})
+    arr = rand(dim)
+    low = maximum(l)
+    high = minimum(h)
+    arr = arr * (high - low) + l
+end
+
+
 function init_particles(num, problem::RegularProblem)
     ps = AbsParticle[]
     for p=1:num
@@ -93,7 +101,7 @@ function init_particles(num, problem::NNProblem, Data::MiniBatch)
     return ps, gbest
 end
 
-function update!(px, pv, pbest, gbest, w, l, h, vmin, vmax, r1, r2)
+function update!(px, pv, pbest, gbest, w, l::Float64, h::Float64, vmin, vmax, r1, r2)
     scale!(pv, w)
     axpy!(1, r1 * (pbest - px), pv)
     axpy!(1, r2 * (gbest - px), pv)
@@ -101,6 +109,16 @@ function update!(px, pv, pbest, gbest, w, l, h, vmin, vmax, r1, r2)
     axpy!(1, pv, px)
     for i=1:length(px); px[i] = px[i] < l ? l : px[i] > h ? h : px[i] end
 end
+
+function update!(px, pv, pbest, gbest, w, l::Array{Float64, 1}, h::Array{Float64, 1}, vmin, vmax, r1, r2)
+    scale!(pv, w)
+    axpy!(1, r1 * (pbest - px), pv)
+    axpy!(1, r2 * (gbest - px), pv)
+    for i=1:length(pv); pv[i] = pv[i] < vmin ? vmin : pv[i] > vmax ? vmax : pv[i] end
+    axpy!(1, pv, px)
+    for i=1:length(px); px[i] = px[i] < l[i] ? l[i] : px[i] > h[i] ? h[i] : px[i] end
+end
+
 
 const libpso = Libdl.find_library(["libpso"], [Pkg.dir("ParticleSwarmOptimization/src")])
 
