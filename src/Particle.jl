@@ -47,9 +47,8 @@ end
 
 function uniform(dim, l::Array{Float64, 1}, h::Array{Float64, 1})
     arr = rand(dim)
-    low = maximum(l)
-    high = minimum(h)
-    arr = arr * (high - low) + l
+    for i=1:length(arr); arr[i] = arr[i] * (h[i] - l[i]) + l[i] end
+    return arr
 end
 
 
